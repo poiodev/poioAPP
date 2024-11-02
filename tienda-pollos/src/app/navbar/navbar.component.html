@@ -1,0 +1,30 @@
+<nav>
+  <div class="circle-menu">
+    <div class="menu-left-icon">
+      <img src="assets/icon/icon-pollo.png" alt="Icono" class="left-icon" />
+    </div>
+
+    <ul>
+      <li><a routerLink="/">Inicio</a></li>
+      <li><a routerLink="/products">Productos</a></li>
+      <li><a routerLink="/contact">Contáctanos</a></li>
+    </ul>
+
+    <div class="menu-right">
+      <ng-container *ngIf="authService.isAuthenticated(); else guestLinks">
+        <a routerLink="/cart" id="cart-icon">
+          🛒
+          <ng-container *ngIf="(cartItemCount$ | async) as count">
+            <span *ngIf="count && count > 0">
+              ({{ count }})
+            </span>
+          </ng-container>
+        </a>
+        <button (click)="logout()">Cerrar Sesión</button>
+      </ng-container>
+      <ng-template #guestLinks>
+        <a routerLink="/login">Login</a> | <a routerLink="/register">Registro</a>
+      </ng-template>
+    </div>
+  </div>
+</nav>
